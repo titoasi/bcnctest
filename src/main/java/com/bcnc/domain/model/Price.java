@@ -17,7 +17,7 @@ public class Price {
 
     @ManyToOne
     @JoinColumn(name = "BRAND_ID", nullable = false)
-    private Long brandId;
+    private Brand brandId;
 
     @Column(name = "START_DATE", nullable = false)
     private LocalDateTime startDate;
@@ -34,8 +34,8 @@ public class Price {
     @Column(name = "PRIORITY", nullable = false)
     private Integer priority;
 
-    @Column(name = "PRICE", nullable = false)
-    private BigDecimal price;
+    @Column(name = "AMOUNT", nullable = false)
+    private BigDecimal amount;
 
     @Column(name = "CURR", length = 3, nullable = false)
     private String currency;

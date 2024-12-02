@@ -11,11 +11,11 @@ import java.util.List;
 
 public interface SpringDataPriceRepository extends JpaRepository<Price,Long> {
 
-    @Query("SELECT * FROM PRICE p" +
-            "WHERE p.BRAND_ID = :brandId " +
-            "AND :requestedDate BETWEEN p.START_DATE AND p.END_DATE " +
-            "AND p.PRODUCTD_ID = :productId " +
-            "ORDER BY p.PRIOTRITY DESC")
+    @Query("SELECT p FROM Price p " +
+            "WHERE p.brandId.brandId = :brandId " +
+            "AND :requestedDate BETWEEN p.startDate AND p.endDate " +
+            "AND p.productId = :productId " +
+            "ORDER BY p.priority DESC")
     List<Price> findSuitablePrice(@Param("requestedDate")LocalDateTime requestedDate,
                                   @Param("productId")Long productId,
                                   @Param("brandId")Long brandId,
