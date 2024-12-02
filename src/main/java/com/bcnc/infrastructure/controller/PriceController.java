@@ -16,13 +16,13 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/bcnc/prices")
+@RequestMapping("/bcnc")
 public class PriceController {
 
     @Autowired
     private PriceService priceService;
 
-    @GetMapping
+    @GetMapping("/prices")
     public ResponseEntity<Price> getSuitablePrice(
                     @RequestParam("requestedDate")String requestedDateString,
                     @RequestParam("productId") Long productId,
