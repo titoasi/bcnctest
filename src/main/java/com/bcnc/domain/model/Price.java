@@ -1,5 +1,6 @@
 package com.bcnc.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Table (name="PRICE")
 public class Price {
 
+    @JsonIgnore
     @Id
     @Column(name ="PRICE_ID")
     private Long priceId;
@@ -25,12 +27,14 @@ public class Price {
     @Column(name = "END_DATE", nullable = false)
     private LocalDateTime endDate;
 
+    @JsonIgnore
     @Column(name = "PRICE_LIST", nullable = false)
     private Long priceList;
 
     @Column(name = "PRODUCT_ID", nullable = false)
     private Long productId;
 
+    @JsonIgnore
     @Column(name = "PRIORITY", nullable = false)
     private Integer priority;
 
