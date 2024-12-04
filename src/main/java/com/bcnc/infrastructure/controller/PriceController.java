@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 @AllArgsConstructor
 @RestController
@@ -28,17 +30,21 @@ public class PriceController {
                     @RequestParam("productId") Long productId,
                     @RequestParam("brandId") Long brandId){
 
-        //Convertimos a fecha el String de entrada
-        //TODO validar formato antes
-        LocalDateTime requestedDate = LocalDateTime.parse(requestedDateString);
-
-        Optional<Price> price = priceService.getPriceApplicable(requestedDate,productId,brandId);
-
-        if (price.isPresent()) {
-            return new ResponseEntity<>(price.get(), HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        //Validamos el formato de la fecha
+        if (requestedDateString == null || productId == null || brandId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+        //Convertimos la fecha a LocalDateTime
+        LocalDateTime requestedDate;
+        try {
+            requestedDate = LocalDateTime.parse(requestedDateString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        } catch (DateTimeParseException e) {
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        return priceService.getSuitablePrice(requestedDate, productId, brandId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

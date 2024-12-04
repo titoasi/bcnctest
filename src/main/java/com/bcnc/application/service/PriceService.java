@@ -16,7 +16,11 @@ public class PriceService {
     @Autowired
     private PriceRepository priceRepository;
 
-    public Optional<Price> getPriceApplicable(LocalDateTime requestedDate, Long productId, Long brandId){
+    public Optional<Price> getSuitablePrice(LocalDateTime requestedDate, Long productId, Long brandId){
+
+        if (requestedDate == null || productId == null || brandId == null) {
+            throw new IllegalArgumentException("Parameters must not be null");
+        }
         return priceRepository.findSuitablePrice(requestedDate,productId,brandId);
     }
 
