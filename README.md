@@ -8,7 +8,7 @@ Java 17+
 Maven 3.8.1+
 
 ## Instalación
-1. Clonar el repositorio
+1. Clonar el repositorio https://github.com/titoasi/bcnctest
 2. Ejecutar el comando `mvn clean install` en la raíz del proyecto
 3. Ejecutar el comando `mvn spring-boot:run` en la raíz del proyecto
 4. La aplicación estará disponible en `http://localhost:8080`
